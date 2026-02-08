@@ -1,0 +1,4 @@
+project_id = "ktdbvrovmiyugoobakjl"
+
+[functions.superfunded-chat]
+verify_jwt = false
