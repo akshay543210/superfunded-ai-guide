@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
         display: ['Space Grotesk', 'sans-serif'],
       },
       colors: {
@@ -54,10 +54,12 @@ export default {
         neon: {
           DEFAULT: "hsl(var(--neon-glow))",
           secondary: "hsl(var(--neon-secondary))",
+          violet: "hsl(var(--neon-violet))",
         },
         glass: {
           bg: "hsl(var(--glass-bg))",
           border: "hsl(var(--glass-border))",
+          highlight: "hsl(var(--glass-highlight))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
@@ -71,6 +73,8 @@ export default {
         },
       },
       borderRadius: {
+        '2xl': '1.25rem',
+        '3xl': '1.5rem',
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",

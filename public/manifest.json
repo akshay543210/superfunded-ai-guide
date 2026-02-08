@@ -1,0 +1,17 @@
+{
+  "name": "SuperFunded AI",
+  "short_name": "SF AI",
+  "description": "Official SuperFunded prop firm AI support assistant",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0612",
+  "theme_color": "#0a0612",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}
