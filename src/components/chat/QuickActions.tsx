@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { DollarSign, TrendingDown, BarChart3, Shield, Wallet, RotateCcw } from 'lucide-react';
 
 const actions = [
@@ -14,25 +15,59 @@ type QuickActionsProps = {
   disabled?: boolean;
 };
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.06, delayChildren: 0.1 },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 16, scale: 0.9 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+  },
+};
+
 const QuickActions = ({ onSelect, disabled }: QuickActionsProps) => {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="show"
+      className="grid grid-cols-2 sm:grid-cols-3 gap-2.5"
+    >
       {actions.map((action) => (
-        <button
+        <motion.button
           key={action.label}
+          variants={item}
           onClick={() => onSelect(action.message)}
           disabled={disabled}
-          className="glass-card px-3 py-3 flex flex-col items-center gap-2 text-center
-            hover:border-primary/50 hover:neon-glow-sm transition-all duration-300
-            disabled:opacity-50 disabled:cursor-not-allowed group cursor-pointer"
+          whileHover={{ scale: 1.03, y: -2 }}
+          whileTap={{ scale: 0.97 }}
+          className="glass-card px-3 py-4 flex flex-col items-center gap-2.5 text-center
+            hover:border-primary/40 transition-all duration-300
+            disabled:opacity-40 disabled:cursor-not-allowed group cursor-pointer
+            relative overflow-hidden"
         >
-          <action.icon className="w-5 h-5 text-primary group-hover:text-neon-secondary transition-colors" />
-          <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+          {/* Hover glow effect */}
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500
+            bg-gradient-to-t from-primary/5 to-transparent" />
+
+          <div className="relative w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center
+            group-hover:bg-primary/20 transition-colors duration-300">
+            <action.icon className="w-4 h-4 text-primary group-hover:text-neon-secondary transition-colors duration-300" />
+          </div>
+          <span className="relative text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300">
             {action.label}
           </span>
-        </button>
+        </motion.button>
       ))}
-    </div>
+    </motion.div>
   );
 };
 
