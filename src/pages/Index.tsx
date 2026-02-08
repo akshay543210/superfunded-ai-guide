@@ -8,7 +8,7 @@ import TypingIndicator from '@/components/chat/TypingIndicator';
 import ParticleBackground from '@/components/effects/ParticleBackground';
 import CursorGlow from '@/components/effects/CursorGlow';
 import { useChat } from '@/hooks/useChat';
-import { Bot } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 
 const Index = () => {
   const { messages, isLoading, send } = useChat();
@@ -67,11 +67,24 @@ const Index = () => {
                       <div className="prose prose-sm prose-invert max-w-none text-sm leading-relaxed
                         prose-p:my-1.5 prose-strong:text-foreground prose-strong:font-semibold">
                         <p>👋 Welcome to <strong>SuperFunded AI</strong>!</p>
-                        <p>I'm your official support assistant. I can help you with account prices, drawdown rules, consistency rules, allowed strategies, payouts, and more.</p>
+                        <p>I'm your official support assistant. My answers are based exclusively on the official SuperFunded Rules & Conditions, General Terms, Privacy Policy, and Website Terms.</p>
                         <p className="text-muted-foreground">Choose a topic below or type your question.</p>
                       </div>
                     </motion.div>
                   </div>
+
+                  {/* Trust banner */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.45 }}
+                    className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-primary/5 border border-primary/15"
+                  >
+                    <ShieldCheck className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                    <p className="text-[11px] text-muted-foreground font-medium">
+                      Answers based on official SuperFunded documents (V.2 — Jan 2026)
+                    </p>
+                  </motion.div>
 
                   {/* Quick actions */}
                   <motion.div
@@ -109,7 +122,7 @@ const Index = () => {
               transition={{ delay: 0.8 }}
               className="text-center text-[10px] text-muted-foreground/60 mt-3 font-medium tracking-wide"
             >
-              AI guidance based on official SuperFunded rules · Powered by SuperFunded AI
+              AI guidance based on official SuperFunded Rules, Terms & Policies · Powered by SuperFunded AI
             </motion.p>
           </div>
         </div>

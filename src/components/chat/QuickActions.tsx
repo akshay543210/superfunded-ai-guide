@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion';
-import { DollarSign, TrendingDown, BarChart3, Shield, Wallet, RotateCcw } from 'lucide-react';
+import { DollarSign, TrendingDown, BarChart3, Shield, Wallet, RotateCcw, Clock, AlertTriangle } from 'lucide-react';
 
 const actions = [
-  { label: 'Account Prices', icon: DollarSign, message: 'What are the SuperFunded account prices and plans?' },
-  { label: 'Drawdown Rules', icon: TrendingDown, message: 'Explain the daily and overall drawdown rules with examples.' },
-  { label: 'Consistency Rule', icon: BarChart3, message: 'What is the consistency rule and why does it exist?' },
-  { label: 'Allowed Strategies', icon: Shield, message: 'What trading strategies are allowed and which are not?' },
-  { label: 'Payout Rules', icon: Wallet, message: 'How do payouts work and what are the eligibility rules?' },
-  { label: 'Account Reset', icon: RotateCcw, message: 'What is the reset and retry policy?' },
+  { label: 'Account Prices', icon: DollarSign, message: 'What are the SuperFunded account prices for 1-Step and 2-Step challenges?' },
+  { label: 'Drawdown Rules', icon: TrendingDown, message: 'Explain the daily drawdown and maximum overall drawdown rules for 1-Step and 2-Step challenges with examples.' },
+  { label: 'Profit Distribution', icon: BarChart3, message: 'What is the profit distribution (consistency) rule and the profit cap?' },
+  { label: 'Prohibited Strategies', icon: AlertTriangle, message: 'What trading strategies are prohibited at SuperFunded?' },
+  { label: 'Payout Rules', icon: Wallet, message: 'How do payouts work? What is the minimum payout, waiting period, and profit share?' },
+  { label: 'News Trading', icon: Clock, message: 'What are the news trading rules at SuperFunded?' },
 ];
 
 type QuickActionsProps = {

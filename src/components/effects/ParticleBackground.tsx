@@ -1,4 +1,5 @@
-import { useEffect, useRef, useMemo } from 'react';
+import { useMemo } from 'react';
+import { motion } from 'framer-motion';
 
 type Particle = {
   x: number;
@@ -26,28 +27,87 @@ const ParticleBackground = () => {
       {/* Cosmic gradient base */}
       <div className="absolute inset-0 gradient-bg" />
 
-      {/* Ambient glow orbs */}
-      <div
-        className="absolute top-[-20%] left-[-10%] w-[60vw] h-[60vw] rounded-full opacity-[0.04] animate-float"
+      {/* Animated ambient glow orbs with framer-motion */}
+      <motion.div
+        className="absolute top-[-20%] left-[-10%] w-[60vw] h-[60vw] rounded-full opacity-[0.04]"
+        animate={{
+          y: [0, -30, 0],
+          x: [0, 15, 0],
+          scale: [1, 1.05, 1],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
         style={{
           background: 'radial-gradient(circle, hsl(268 85% 58%), transparent 70%)',
-          animationDuration: '20s',
         }}
       />
-      <div
-        className="absolute bottom-[-30%] right-[-15%] w-[50vw] h-[50vw] rounded-full opacity-[0.03] animate-float"
+      <motion.div
+        className="absolute bottom-[-30%] right-[-15%] w-[50vw] h-[50vw] rounded-full opacity-[0.03]"
+        animate={{
+          y: [0, 25, 0],
+          x: [0, -20, 0],
+          scale: [1, 1.08, 1],
+        }}
+        transition={{
+          duration: 25,
+          repeat: Infinity,
+          ease: 'easeInOut',
+          delay: 5,
+        }}
         style={{
           background: 'radial-gradient(circle, hsl(280 90% 65%), transparent 70%)',
-          animationDuration: '25s',
-          animationDelay: '5s',
         }}
       />
-      <div
-        className="absolute top-[30%] right-[5%] w-[30vw] h-[30vw] rounded-full opacity-[0.025] animate-float"
+      <motion.div
+        className="absolute top-[30%] right-[5%] w-[30vw] h-[30vw] rounded-full opacity-[0.025]"
+        animate={{
+          y: [0, -20, 0],
+          x: [0, -10, 0],
+        }}
+        transition={{
+          duration: 30,
+          repeat: Infinity,
+          ease: 'easeInOut',
+          delay: 10,
+        }}
         style={{
           background: 'radial-gradient(circle, hsl(200 95% 55%), transparent 70%)',
-          animationDuration: '30s',
-          animationDelay: '10s',
+        }}
+      />
+
+      {/* Cinematic light streak */}
+      <motion.div
+        className="absolute top-0 left-[20%] w-[1px] h-[60vh] opacity-[0.03]"
+        animate={{
+          opacity: [0.02, 0.06, 0.02],
+          scaleY: [0.8, 1.2, 0.8],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        style={{
+          background: 'linear-gradient(to bottom, transparent, hsl(268 85% 58%), transparent)',
+        }}
+      />
+      <motion.div
+        className="absolute top-[10%] right-[35%] w-[1px] h-[40vh] opacity-[0.02]"
+        animate={{
+          opacity: [0.01, 0.04, 0.01],
+          scaleY: [1, 1.3, 1],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: 'easeInOut',
+          delay: 3,
+        }}
+        style={{
+          background: 'linear-gradient(to bottom, transparent, hsl(280 90% 65%), transparent)',
         }}
       />
 
@@ -69,18 +129,19 @@ const ParticleBackground = () => {
         />
       ))}
 
-      {/* Giant "SF" watermark */}
+      {/* Giant "SF" watermark with slow motion */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <div
-          className="text-[30vw] sm:text-[20vw] font-display font-bold select-none animate-rotate-slow"
+        <motion.div
+          className="text-[30vw] sm:text-[20vw] font-display font-bold select-none"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 120, repeat: Infinity, ease: 'linear' }}
           style={{
             color: 'transparent',
             WebkitTextStroke: '1px hsl(268 85% 58% / 0.03)',
-            animationDuration: '120s',
           }}
         >
           SF
-        </div>
+        </motion.div>
       </div>
 
       {/* Top edge vignette */}

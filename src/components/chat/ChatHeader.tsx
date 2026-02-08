@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { Bot, Sparkles } from 'lucide-react';
+import { Bot, Sparkles, ShieldCheck } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 const ChatHeader = () => {
   return (
@@ -34,6 +35,21 @@ const ChatHeader = () => {
           </p>
         </div>
       </div>
+
+      {/* Trust badge */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.4, duration: 0.4, type: 'spring' }}
+      >
+        <Badge
+          variant="outline"
+          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 border-primary/30 bg-primary/5 text-primary text-[10px] font-semibold tracking-wider uppercase"
+        >
+          <ShieldCheck className="w-3 h-3" />
+          Official Docs
+        </Badge>
+      </motion.div>
 
       {/* Subtle header line glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
