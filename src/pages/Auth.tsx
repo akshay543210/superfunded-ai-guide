@@ -15,13 +15,14 @@ const loginSchema = z.object({
 });
 
 const Auth = () => {
-  const { user, isAdmin, loading, signIn } = useAuth();
+  const { user, isAdmin, loading, signIn, signUp } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false);
 
   useEffect(() => {
     if (!loading && user && isAdmin) {
@@ -38,14 +39,24 @@ const Auth = () => {
     }
 
     setSubmitting(true);
-    const { error } = await signIn(email, password);
-    setSubmitting(false);
-
-    if (error) {
-      let msg = 'Login failed. Please try again.';
-      if (error.message.includes('Invalid login')) msg = 'Invalid email or password.';
-      else if (error.message.includes('Email not confirmed')) msg = 'Please verify your email first.';
-      toast({ title: 'Login Failed', description: msg, variant: 'destructive' });
+    if (isSignUp) {
+      const { error } = await signUp(email, password);
+      setSubmitting(false);
+      if (error) {
+        toast({ title: 'Sign Up Failed', description: error.message, variant: 'destructive' });
+      } else {
+        toast({ title: 'Account Created', description: 'You can now sign in.' });
+        setIsSignUp(false);
+      }
+    } else {
+      const { error } = await signIn(email, password);
+      setSubmitting(false);
+      if (error) {
+        let msg = 'Login failed. Please try again.';
+        if (error.message.includes('Invalid login')) msg = 'Invalid email or password.';
+        else if (error.message.includes('Email not confirmed')) msg = 'Please verify your email first.';
+        toast({ title: 'Login Failed', description: msg, variant: 'destructive' });
+      }
     }
   };
 
@@ -64,7 +75,7 @@ const Auth = () => {
           <div className="mx-auto w-14 h-14 rounded-2xl gradient-violet flex items-center justify-center neon-glow-sm">
             <ShieldCheck className="w-7 h-7 text-primary-foreground" />
           </div>
-          <CardTitle className="text-2xl font-display">Admin Login</CardTitle>
+          <CardTitle className="text-2xl font-display">{isSignUp ? 'Create Account' : 'Admin Login'}</CardTitle>
           <CardDescription>SuperFunded Admin Panel — Authorized Access Only</CardDescription>
         </CardHeader>
         <CardContent>
@@ -103,9 +114,16 @@ const Auth = () => {
             </div>
             <Button type="submit" className="w-full" disabled={submitting}>
               {submitting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-              Sign In
+              {isSignUp ? 'Sign Up' : 'Sign In'}
             </Button>
           </form>
+          <button
+            type="button"
+            className="mt-4 text-sm text-muted-foreground hover:text-foreground w-full text-center"
+            onClick={() => setIsSignUp(!isSignUp)}
+          >
+            {isSignUp ? 'Already have an account? Sign In' : "Don't have an account? Sign Up"}
+          </button>
           {user && !isAdmin && !loading && (
             <p className="mt-4 text-sm text-destructive text-center">
               You do not have admin access. Contact SuperFunded support.
