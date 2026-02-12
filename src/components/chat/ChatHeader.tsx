@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { Bot, Sparkles, ShieldCheck } from 'lucide-react';
+import { Sparkles, ShieldCheck } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import sfLogo from '@/assets/sf-logo.webp';
 
 const ChatHeader = () => {
   return (
@@ -10,11 +11,11 @@ const ChatHeader = () => {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="relative flex items-center gap-4 px-5 py-4 border-b border-border/30"
     >
-      {/* Avatar with glow ring */}
+      {/* Logo with glow ring */}
       <div className="relative">
         <div className="absolute inset-0 rounded-full animate-glow-ring neon-glow-sm" />
-        <div className="relative w-11 h-11 rounded-full gradient-violet flex items-center justify-center neon-glow">
-          <Bot className="w-5 h-5 text-primary-foreground" />
+        <div className="relative w-11 h-11 rounded-full overflow-hidden neon-glow">
+          <img src={sfLogo} alt="SuperFunded" className="w-full h-full object-cover" />
         </div>
       </div>
 
