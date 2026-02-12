@@ -7,8 +7,10 @@ import QuickActions from '@/components/chat/QuickActions';
 import TypingIndicator from '@/components/chat/TypingIndicator';
 import ParticleBackground from '@/components/effects/ParticleBackground';
 import CursorGlow from '@/components/effects/CursorGlow';
+import PromoBar from '@/components/PromoBar';
 import { useChat } from '@/hooks/useChat';
 import { ShieldCheck } from 'lucide-react';
+import sfLogo from '@/assets/sf-logo.webp';
 
 const Index = () => {
   const { messages, isLoading, send } = useChat();
@@ -30,6 +32,7 @@ const Index = () => {
 
       {/* Main content layer */}
       <div className="relative z-10 flex flex-col h-full">
+        <PromoBar />
         <ChatHeader />
 
         {/* Messages area */}
@@ -54,9 +57,9 @@ const Index = () => {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ type: 'spring', stiffness: 300, delay: 0.2 }}
-                      className="w-8 h-8 rounded-2xl gradient-violet flex items-center justify-center flex-shrink-0 neon-glow-sm"
+                      className="w-8 h-8 rounded-2xl overflow-hidden flex-shrink-0 neon-glow-sm"
                     >
-                      <span className="text-[10px] font-bold tracking-wider text-primary-foreground">SF</span>
+                      <img src={sfLogo} alt="SF" className="w-full h-full object-cover" />
                     </motion.div>
                     <motion.div
                       initial={{ opacity: 0, y: 16 }}
