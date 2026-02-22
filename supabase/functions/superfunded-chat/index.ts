@@ -242,7 +242,7 @@ serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { messages } = await req.json();
+    const { messages, sessionId } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
@@ -294,6 +294,17 @@ serve(async (req) => {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
+    }
+
+    // Log chat message asynchronously (don't block response)
+    const lastUserMsg = messages?.filter((m: { role: string }) => m.role === 'user').pop();
+    if (lastUserMsg && supabaseUrl && serviceRoleKey) {
+      const logClient = createClient(supabaseUrl, serviceRoleKey);
+      logClient.from('chat_sessions').insert({
+        session_id: sessionId || crypto.randomUUID(),
+        user_message: lastUserMsg.content?.substring(0, 500) || '',
+        ai_response_status: response.ok ? 'success' : 'error',
+      }).then(() => {}).catch((e) => console.error('Failed to log chat:', e));
     }
 
     return new Response(response.body, {
