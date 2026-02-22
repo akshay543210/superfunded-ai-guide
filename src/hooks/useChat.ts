@@ -4,6 +4,9 @@ type Message = { role: 'user' | 'assistant'; content: string };
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/superfunded-chat`;
 
+// Generate a stable session ID per browser session
+const SESSION_ID = crypto.randomUUID();
+
 export function useChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +29,7 @@ export function useChat() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         },
-        body: JSON.stringify({ messages: allMessages }),
+        body: JSON.stringify({ messages: allMessages, sessionId: SESSION_ID }),
         signal: controller.signal,
       });
 

@@ -44,6 +44,30 @@ export type Database = {
         }
         Relationships: []
       }
+      chat_sessions: {
+        Row: {
+          ai_response_status: string
+          created_at: string
+          id: string
+          session_id: string
+          user_message: string
+        }
+        Insert: {
+          ai_response_status?: string
+          created_at?: string
+          id?: string
+          session_id: string
+          user_message: string
+        }
+        Update: {
+          ai_response_status?: string
+          created_at?: string
+          id?: string
+          session_id?: string
+          user_message?: string
+        }
+        Relationships: []
+      }
       faqs: {
         Row: {
           answer: string
